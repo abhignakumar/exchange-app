@@ -72,10 +72,10 @@ export class Orderbook {
           fills,
         };
       }
-      console.log("------ ");
-      console.log(this.asks[i]);
-      console.log("------");
-      console.log(order);
+      // console.log("------ ");
+      // console.log(this.asks[i]);
+      // console.log("------");
+      // console.log(order);
 
       if (this.asks[i].price <= order.price) {
         const filledQuantity = Math.min(
@@ -108,10 +108,10 @@ export class Orderbook {
         };
       }
 
-      console.log("------ ");
-      console.log(this.bids[i]);
-      console.log("------");
-      console.log(order);
+      // console.log("------ ");
+      // console.log(this.bids[i]);
+      // console.log("------");
+      // console.log(order);
 
       if (this.bids[i].price >= order.price) {
         const filledQuantity = Math.min(
@@ -155,8 +155,8 @@ export class Orderbook {
 
     for (const price in asksObj) asks.push([price, asksObj[price].toString()]);
 
-    console.log("Depth");
-    console.log({ bids, asks });
+    // console.log("Depth");
+    // console.log({ bids, asks });
 
     return { bids, asks };
   }
