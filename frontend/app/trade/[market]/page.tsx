@@ -6,6 +6,8 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const BACKEND_URL = "https://apiexchangeapp.abhigna.online";
+
 export default function Page() {
   const pathname = usePathname();
   const market = pathname.split("/")[2];
@@ -23,7 +25,9 @@ export default function Page() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(`/api/v1/depth?market=${market}`);
+      const response = await axios.get(
+        `${BACKEND_URL}/api/v1/depth?market=${market}`
+      );
       if (response.data) {
         setDepth(response.data);
         setDepth((prev) => {
