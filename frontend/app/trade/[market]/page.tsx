@@ -6,7 +6,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function () {
+export default function Page() {
   const pathname = usePathname();
   const market = pathname.split("/")[2];
   const [depth, setDepth] = useState<{
@@ -23,9 +23,7 @@ export default function () {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/depth?market=${market}`
-      );
+      const response = await axios.get(`/api/v1/depth?market=${market}`);
       if (response.data) {
         setDepth(response.data);
         setDepth((prev) => {
@@ -121,7 +119,7 @@ export default function () {
         `TRADE-${market}`
       );
     };
-  }, []);
+  }, [market]);
 
   return (
     <div className="min-h-[95vh] bg-zinc-900">

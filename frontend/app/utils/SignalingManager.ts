@@ -1,4 +1,4 @@
-export const BASE_URL_WS = "ws://localhost:8080";
+export const BASE_URL_WS = "ws://websocketexchange.abhigna.online";
 
 export class SignalingManager {
   private static instance: SignalingManager;
