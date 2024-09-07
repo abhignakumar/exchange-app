@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://exchangeapp.abhigna.online";
+const BASE_URL = "https://apiexchangeapp.abhigna.online";
 const TOTAL_BIDS = 15;
 const TOTAL_ASK = 15;
 const MARKET = "SOL_INR";
