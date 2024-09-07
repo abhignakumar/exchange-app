@@ -170,14 +170,14 @@ export class Engine {
         }
         break;
     }
-    console.log("OrderBook");
-    console.log(this.orderbook);
-    console.log("Balances");
-    console.log(this.balances);
-    console.log("Bids");
-    console.log(this.orderbook[0].bids);
-    console.log("Asks");
-    console.log(this.orderbook[0].asks);
+    // console.log("OrderBook");
+    // console.log(this.orderbook);
+    // console.log("Balances");
+    // console.log(this.balances);
+    // console.log("Bids");
+    // console.log(this.orderbook[0].bids);
+    // console.log("Asks");
+    // console.log(this.orderbook[0].asks);
   }
 
   createOrder(
