@@ -35,8 +35,8 @@ export const Orderbook = ({
   );
 
   return (
-    <div className="bg-zinc-800 w-3/4 my-5 rounded-md overflow-scroll text-gray-300 text-sm">
-      <div className="flex justify-between font-bold py-2">
+    <div className="bg-zinc-800 w-1/2 my-10 rounded-md overflow-scroll text-gray-300 text-sm border border-slate-600">
+      <div className="flex justify-between font-bold py-2 bg-zinc-700">
         <div className="w-1/3 text-left pl-3">{`Price (${
           depth?.market.split("_")[1]
         })`}</div>

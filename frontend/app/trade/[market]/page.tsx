@@ -126,13 +126,13 @@ export default function Page() {
   }, [market]);
 
   return (
-    <div className="min-h-[95vh] bg-zinc-900">
+    <div className="bg-zinc-900">
       <div className="flex text-xl text-gray-300 p-3 bg-zinc-700 font-bold">
         <div className="mx-10">{market}</div>
         <div>{depth?.currentPrice || "..."}</div>
       </div>
-      <div className="flex h-screen">
-        <div className="flex justify-center w-1/2">
+      <div className="h-[87vh]">
+        <div className="flex justify-center h-full">
           <Orderbook depth={depth} />
         </div>
       </div>
