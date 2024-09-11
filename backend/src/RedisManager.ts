@@ -1,5 +1,7 @@
 import { createClient, RedisClientType } from "redis";
 import { MessageFromOrderBook, MessageToEngine } from "./types";
+import dotenv from "dotenv";
+dotenv.config();
 
 export class RedisManager {
   private static instance: RedisManager;
@@ -7,9 +9,21 @@ export class RedisManager {
   private subscriber: RedisClientType;
 
   private constructor() {
-    this.pushToQueue = createClient();
+    this.pushToQueue = createClient({
+      password: process.env.REDIS_PASSWORD,
+      socket: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+      },
+    });
     this.pushToQueue.connect();
-    this.subscriber = createClient();
+    this.subscriber = createClient({
+      password: process.env.REDIS_PASSWORD,
+      socket: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+      },
+    });
     this.subscriber.connect();
   }
 

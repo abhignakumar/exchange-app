@@ -1,4 +1,4 @@
-export const BASE_URL_WS = "wss://websocketexchange.abhigna.online";
+export const BASE_URL_WS = process.env.WEBSOCKET_URL || "";
 
 export class SignalingManager {
   private static instance: SignalingManager;

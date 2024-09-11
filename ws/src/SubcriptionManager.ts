@@ -1,5 +1,7 @@
 import { createClient, RedisClientType } from "redis";
 import { UserManager } from "./UserManager";
+import dotenv from "dotenv";
+dotenv.config();
 
 export class SubscriptionManager {
   private static instance: SubscriptionManager;
@@ -8,7 +10,13 @@ export class SubscriptionManager {
   private reverseSubscriptions: Map<string, string[]> = new Map();
 
   private constructor() {
-    this.client = createClient();
+    this.client = createClient({
+      password: process.env.REDIS_PASSWORD,
+      socket: {
+        host: process.env.REDIS_HOST,
+        port: Number(process.env.REDIS_PORT),
+      },
+    });
     this.client.connect();
   }
 

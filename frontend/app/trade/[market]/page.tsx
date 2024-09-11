@@ -6,7 +6,7 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const BACKEND_URL = "https://apiexchangeapp.abhigna.online";
+const BACKEND_URL = process.env.BACKEND_URL;
 
 export default function Page() {
   const pathname = usePathname();

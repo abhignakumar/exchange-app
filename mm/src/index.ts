@@ -1,6 +1,9 @@
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
 
-const BASE_URL = "https://apiexchangeapp.abhigna.online";
+const BACKEND_URL = process.env.BACKEND_URL || "";
+
 const TOTAL_BIDS = 15;
 const TOTAL_ASK = 15;
 const MARKET = "SOL_INR";
@@ -9,7 +12,7 @@ const USER_ID = "abcd";
 async function main() {
   const price = 1000 + Math.random() * 10;
   const openOrders = await axios.get(
-    `${BASE_URL}/api/v1/order/open?userId=${USER_ID}&market=${MARKET}`
+    `${BACKEND_URL}/api/v1/order/open?userId=${USER_ID}&market=${MARKET}`
   );
 
   const totalBids = openOrders.data.responseData.filter(
@@ -33,7 +36,7 @@ async function main() {
 
   while (bidsToAdd > 0 || asksToAdd > 0) {
     if (bidsToAdd > 0) {
-      await axios.post(`${BASE_URL}/api/v1/order`, {
+      await axios.post(`${BACKEND_URL}/api/v1/order`, {
         market: MARKET,
         price: (price - Math.random() * 1).toFixed(1).toString(),
         quantity: "1",
@@ -43,7 +46,7 @@ async function main() {
       bidsToAdd--;
     }
     if (asksToAdd > 0) {
-      await axios.post(`${BASE_URL}/api/v1/order`, {
+      await axios.post(`${BACKEND_URL}/api/v1/order`, {
         market: MARKET,
         price: (price + Math.random() * 1).toFixed(1).toString(),
         quantity: "1",
@@ -64,7 +67,7 @@ async function cancelBidsMoreThan(openOrders: any[], price: number) {
   openOrders.map((o) => {
     if (o.side === "buy" && (o.price > price || Math.random() < 0.1)) {
       promises.push(
-        axios.delete(`${BASE_URL}/api/v1/order`, {
+        axios.delete(`${BACKEND_URL}/api/v1/order`, {
           data: {
             orderId: o.orderId,
             market: MARKET,
@@ -82,7 +85,7 @@ async function cancelAsksLessThan(openOrders: any[], price: number) {
   openOrders.map((o) => {
     if (o.side === "sell" && (o.price < price || Math.random() < 0.5)) {
       promises.push(
-        axios.delete(`${BASE_URL}/api/v1/order`, {
+        axios.delete(`${BACKEND_URL}/api/v1/order`, {
           data: {
             orderId: o.orderId,
             market: MARKET,
