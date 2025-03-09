@@ -9,8 +9,8 @@ export const Orderbook = ({
   };
 }) => {
   let currentTotal = 0;
-  const relevantAsks = depth?.asks.slice(0, 15);
-  relevantAsks?.reverse();
+
+  const relevantAsks = depth?.asks.slice(0, 15).reverse();
   const asksWithTotal = relevantAsks?.map(([price, quantity]) => [
     price,
     quantity,
@@ -35,87 +35,57 @@ export const Orderbook = ({
   );
 
   return (
-    <div className="bg-zinc-800 w-1/2 my-10 rounded-md overflow-scroll text-gray-300 text-sm border border-slate-600">
-      <div className="flex justify-between font-bold py-2 bg-zinc-700">
-        <div className="w-1/3 text-left pl-3">{`Price (${
-          depth?.market.split("_")[1]
-        })`}</div>
-        <div className="w-1/3 text-center">{`Quantity (${
-          depth?.market.split("_")[0]
-        })`}</div>
-        <div className="w-1/3 text-right pr-3">Total</div>
+    <div className="bg-zinc-900 w-full md:w-1/2 my-10 rounded-lg overflow-auto text-sm border border-slate-700 shadow-md">
+      <div className="flex justify-between font-semibold py-3 px-4 bg-zinc-800 text-slate-300 border-b border-slate-600 text-xs uppercase">
+        <div className="w-1/3 text-left">
+          Price ({depth?.market.split("_")[1]})
+        </div>
+        <div className="w-1/3 text-center">
+          Quantity ({depth?.market.split("_")[0]})
+        </div>
+        <div className="w-1/3 text-right">Total</div>
       </div>
-      <div>
-        {asksWithTotal?.map((a, index) => (
+
+      {asksWithTotal?.map(([price, quantity, total], index) => (
+        <div key={index} className="relative flex items-center h-7 px-4">
           <div
-            key={index}
+            className="absolute top-0 left-0 h-full transition-all duration-300 rounded-sm"
             style={{
-              display: "flex",
-              position: "relative",
-              width: "100%",
-              backgroundColor: "transparent",
-              overflow: "hidden",
+              width: `${(100 * Number(total)) / (maxTotalAsks || 1)}%`,
+              backgroundColor: "rgba(255, 80, 80, 0.15)",
             }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: `${(100 * Number(a[2])) / (maxTotalAsks || 1)}%`,
-                height: "100%",
-                background: "rgba(228, 75, 68, 0.325)",
-                border: "rgba(228, 75, 68, 0.325) solid 1px",
-                transition: "all 0.3s ease-in-out",
-              }}
-            ></div>
-            <div className="flex justify-between w-full">
-              <div className="w-1/3 text-left pl-3 text-red-700 font-semibold">
-                {a[0]}
-              </div>
-              <div className="w-1/3 text-center">{a[1]}</div>
-              <div className="w-1/3 text-right pr-3">{a[2]}</div>
+          />
+          <div className="flex justify-between w-full relative z-10">
+            <div className="w-1/3 text-left text-red-500 font-medium">
+              {price}
             </div>
+            <div className="w-1/3 text-center text-gray-200">{quantity}</div>
+            <div className="w-1/3 text-right text-gray-400">{total}</div>
           </div>
-        ))}
-      </div>
-      <div className="py-2 pl-3 font-bold bg-zinc-700">
+        </div>
+      ))}
+
+      <div className="py-3 px-4 text-center font-bold text-sky-400 bg-zinc-800 border-y border-slate-600">
         {depth?.currentPrice}
       </div>
-      <div>
-        {bidsWithTotal?.map((b, index) => (
+      {bidsWithTotal?.map(([price, quantity, total], index) => (
+        <div key={index} className="relative flex items-center h-7 px-4">
           <div
-            key={index}
+            className="absolute top-0 left-0 h-full transition-all duration-300 rounded-sm"
             style={{
-              display: "flex",
-              position: "relative",
-              width: "100%",
-              backgroundColor: "transparent",
-              overflow: "hidden",
+              width: `${(100 * Number(total)) / (maxTotalBids || 1)}%`,
+              backgroundColor: "rgba(34, 197, 94, 0.15)",
             }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: `${(100 * Number(b[2])) / (maxTotalBids || 1)}%`,
-                height: "100%",
-                background: "rgba(1, 167, 129, 0.325)",
-                transition: "all 0.3s ease-in-out",
-                border: "rgba(1, 167, 129, 0.325) solid 1px",
-              }}
-            ></div>
-            <div className="flex justify-between w-full">
-              <div className="w-1/3 text-left pl-3 text-green-700 font-semibold">
-                {b[0]}
-              </div>
-              <div className="w-1/3 text-center">{b[1]}</div>
-              <div className="w-1/3 text-right pr-3">{b[2]}</div>
+          />
+          <div className="flex justify-between w-full relative z-10">
+            <div className="w-1/3 text-left text-green-500 font-medium">
+              {price}
             </div>
+            <div className="w-1/3 text-center text-gray-200">{quantity}</div>
+            <div className="w-1/3 text-right text-gray-400">{total}</div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

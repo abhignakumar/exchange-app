@@ -3,7 +3,7 @@ import "./globals.css";
 import { AppBar } from "./components/AppBar";
 
 export const metadata: Metadata = {
-  title: "Exchange App",
+  title: "Centralized Asset Exchange",
   description: "",
 };
 
